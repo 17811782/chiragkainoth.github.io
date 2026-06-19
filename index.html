@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chirag K — Junior Design Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --sand:    #F5F0E8;
+      --ink:     #1A1712;
+      --warm:    #B8864E;      /* blueprint amber */
+      --warm-lt: #E8D5B7;
+      --rule:    #D4C9B5;
+      --muted:   #7A7060;
+      --white:   #FFFFFF;
+      --radius:  4px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--sand);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 32px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--warm); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 140px 0 80px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 20px;
+      border-left: 3px solid var(--warm);
+      padding-left: 12px;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .hero h1 span { color: var(--warm); }
+    .hero-bio {
+      max-width: 560px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .meta-item svg { flex-shrink: 0; }
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--ink);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: var(--radius);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn:hover { background: var(--warm); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      margin-left: 12px;
+    }
+    .btn-outline:hover { background: var(--ink); color: var(--white); }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 72px 0; border-bottom: 1px solid var(--rule); }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: var(--ink);
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-grid { display: flex; flex-direction: column; gap: 40px; }
+    .exp-card {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0 32px;
+      position: relative;
+    }
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      top: 8px; left: 148px;
+      width: 1px; height: calc(100% + 40px);
+      background: var(--rule);
+    }
+    .exp-card:last-child::before { display: none; }
+    .exp-date {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      padding-top: 4px;
+      text-align: right;
+    }
+    .exp-dot {
+      position: absolute;
+      top: 6px; left: 143px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--warm);
+      border: 2px solid var(--sand);
+    }
+    .exp-body { padding-left: 24px; }
+    .exp-role {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .exp-company {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--warm);
+      margin-bottom: 12px;
+    }
+    .exp-list { list-style: none; padding: 0; }
+    .exp-list li {
+      font-size: 0.92rem;
+      color: var(--muted);
+      padding: 4px 0 4px 16px;
+      position: relative;
+    }
+    .exp-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--warm);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-intro { color: var(--muted); margin-bottom: 28px; font-size: 0.95rem; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .proj-tag {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      color: var(--ink);
+      font-weight: 500;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .proj-tag .tag-client {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--warm);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .proj-tag:hover { border-color: var(--warm); transform: translateY(-2px); }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .skill-pill {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .skill-pill .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--warm);
+      flex-shrink: 0;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-grid { display: flex; flex-direction: column; gap: 24px; }
+    .edu-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .edu-year {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      min-width: 80px;
+      padding-top: 3px;
+    }
+    .edu-detail { flex: 1; }
+    .edu-degree {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .edu-school { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact { border-bottom: none; }
+    .contact-box {
+      background: var(--ink);
+      border-radius: 8px;
+      padding: 56px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .contact-box h2 { color: var(--white); margin-bottom: 8px; }
+    .contact-tagline { color: var(--warm-lt); font-size: 0.95rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--warm-lt);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--warm); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 0;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .exp-card { grid-template-columns: 1fr; }
+      .exp-card::before, .exp-dot { display: none; }
+      .exp-body { padding-left: 0; }
+      .exp-date { text-align: left; margin-bottom: 4px; }
+      .contact-box { padding: 32px 24px; }
+      nav .nav-links { gap: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <a class="nav-logo" href="#">Chirag K</a>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <span class="hero-eyebrow">Junior Design Manager · Dubai, UAE</span>
+    <h1>Turning <span>blueprints</span><br>into built reality</h1>
+    <p class="hero-bio">
+      Detail-oriented design professional specialising in joinery shop drawings and technical coordination for high-end residential fit-outs across Emaar's flagship projects in Dubai.
+    </p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +971 55 690 1039
+      </div>
+      <div class="meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        chiragkainoth@gmail.com
+      </div>
+      <div class="meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        2+ Years in UAE
+      </div>
+    </div>
+    <a href="#contact" class="btn">Get in Touch</a>
+    <a href="#experience" class="btn btn-outline">View Work</a>
+  </div>
+</header>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <div class="exp-grid">
+
+      <div class="exp-card">
+        <div class="exp-date">May 2024 – Present</div>
+        <div class="exp-dot"></div>
+        <div class="exp-body">
+          <div class="exp-role">Junior Design Manager</div>
+          <div class="exp-company">Idea Mobili Building Materials LLC · Business Bay, Dubai</div>
+          <ul class="exp-list">
+            <li>Prepared detailed technical drawings for kitchen cabinets, doors, vanities, and wardrobes using CAD software.</li>
+            <li>Produced precise, construction-ready drawings to guide manufacturing and installation processes.</li>
+            <li>Attended client meetings to capture requirements and translate them into accurate design documentation.</li>
+            <li>Conducted site visits to verify measurements and assess design feasibility on the ground.</li>
+            <li>Ensured full compliance with Emaar standards and project specifications across all deliverables.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-date">2022 – 2024</div>
+        <div class="exp-dot"></div>
+        <div class="exp-body">
+          <div class="exp-role">Draughtsman</div>
+          <div class="exp-company">Muttungal Associates · Calicut, Kerala</div>
+          <ul class="exp-list">
+            <li>Prepared legal-permission drawings for submission to panchayats and municipalities.</li>
+            <li>Compiled and coordinated all documentation required for construction permits.</li>
+            <li>Developed detailed building plans from architectural designs and specifications.</li>
+            <li>Created elevation drawings depicting external appearance and architectural features.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Projects</div>
+    <h2>Emaar &amp; Premium Developments</h2>
+    <p class="projects-intro">Joinery and kitchen fit-out coordination across Dubai's leading residential projects.</p>
+    <div class="projects-grid">
+      <div class="proj-tag"><span class="tag-client">Emaar</span>Sunridge</div>
+      <div class="proj-tag"><span class="tag-client">Emaar</span>Bayview</div>
+      <div class="proj-tag"><span class="tag-client">Emaar</span>Seapoint</div>
+      <div class="proj-tag"><span class="tag-client">Emaar</span>Seascape</div>
+      <div class="proj-tag"><span class="tag-client">Emaar</span>Emaar South Fairway Villas</div>
+      <div class="proj-tag"><span class="tag-client">Emaar</span>Palace Residences</div>
+      <div class="proj-tag"><span class="tag-client">Emaar</span>Golf Heights</div>
+      <div class="proj-tag"><span class="tag-client">Tilal Al Ghaf</span>Aura Gardens</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Software Skills</div>
+    <h2>Tools &amp; Technologies</h2>
+    <div class="skills-grid">
+      <div class="skill-pill"><span class="dot"></span>AutoCAD</div>
+      <div class="skill-pill"><span class="dot"></span>SketchUp</div>
+      <div class="skill-pill"><span class="dot"></span>Autodesk 3ds Max</div>
+      <div class="skill-pill"><span class="dot"></span>V-Ray</div>
+      <div class="skill-pill"><span class="dot"></span>Lumion</div>
+      <div class="skill-pill"><span class="dot"></span>Microsoft Excel</div>
+      <div class="skill-pill"><span class="dot"></span>Microsoft Word</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-label">Education</div>
+    <div class="edu-grid">
+      <div class="edu-item">
+        <div class="edu-year">2021</div>
+        <div class="edu-detail">
+          <div class="edu-degree">Diploma in Architecture Designing</div>
+          <div class="edu-school">CADD Campus, Calicut</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2018 – 2021</div>
+        <div class="edu-detail">
+          <div class="edu-degree">Diploma in Civil Engineering</div>
+          <div class="edu-school">Government Polytechnic College, Meenangadi, Wayanad</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2016 – 2018</div>
+        <div class="edu-detail">
+          <div class="edu-degree">Higher Secondary — Electrical &amp; Electronics Engineering</div>
+          <div class="edu-school">Vocational Higher Secondary, Vadakara</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-box">
+      <div>
+        <h2>Let's work together</h2>
+        <p class="contact-tagline">Open to new design and coordination opportunities in the UAE.</p>
+      </div>
+      <div class="contact-links">
+        <a href="tel:+971556901039" class="contact-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +971 55 690 1039
+        </a>
+        <a href="mailto:chiragkainoth@gmail.com" class="contact-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          chiragkainoth@gmail.com
+        </a>
+        <a href="#" class="contact-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Dubai, UAE
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2025 Chirag K · Junior Design Manager
+  </div>
+</footer>
+
+</body>
+</html>
